@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Starter Lab | HTML CSS JavaScript</title>
+  <style>
+    :root {
+      --ink: #17262f;
+      --muted: #62747c;
+      --paper: #f7f5ef;
+      --panel: #fffdf8;
+      --line: #d9dfd8;
+      --teal: #0d7771;
+      --teal-dark: #075650;
+      --coral: #ed735b;
+      --yellow: #f6c95b;
+      --shadow: 0 18px 45px rgba(26, 55, 55, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      line-height: 1.6;
+    }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px clamp(20px, 5vw, 72px);
+      background: rgba(247, 245, 239, 0.92);
+      border-bottom: 1px solid rgba(217, 223, 216, 0.8);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      color: var(--teal-dark);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+    }
+    .brand span { color: var(--coral); }
+    .nav { display: flex; gap: 22px; }
+    .nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+    .nav a:hover { color: var(--teal); }
+
+    main { overflow: hidden; }
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 48px;
+      align-items: center;
+      min-height: 650px;
+      padding: 78px clamp(20px, 8vw, 120px) 90px;
+      background: #e7f0ea;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -100px;
+      top: -120px;
+      width: 450px;
+      height: 450px;
+      border: 1px solid rgba(13, 119, 113, 0.18);
+      border-radius: 50%;
+      box-shadow: 0 0 0 38px rgba(13, 119, 113, 0.05), 0 0 0 78px rgba(13, 119, 113, 0.035);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 3px; background: var(--coral); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 700px;
+      margin-bottom: 24px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.3rem, 7vw, 6.5rem);
+      font-weight: 700;
+      letter-spacing: -0.07em;
+      line-height: 0.96;
+    }
+    h1 em { color: var(--coral); font-style: normal; }
+    .hero-copy { max-width: 580px; color: var(--muted); font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .btn {
+      border: 0;
+      border-radius: 4px;
+      padding: 13px 19px;
+      font-weight: 800;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(23, 38, 47, 0.15); }
+    .btn-primary { color: white; background: var(--teal); }
+    .btn-quiet { color: var(--teal-dark); background: transparent; border: 1px solid var(--teal); }
+
+    .blueprint {
+      position: relative;
+      z-index: 1;
+      padding: 26px;
+      color: #e7f0ea;
+      background: var(--teal-dark);
+      box-shadow: var(--shadow);
+      transform: rotate(2deg);
+    }
+    .blueprint::before { content: "< >"; display: block; color: var(--yellow); font: 700 4rem/1 Georgia, serif; }
+    .blueprint h2 { margin: 25px 0 10px; color: white; font-size: 1.5rem; }
+    .blueprint p { color: #b9d3ca; font-size: 0.92rem; }
+    .checklist { display: grid; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+    .checklist div { display: flex; justify-content: space-between; font-size: 0.9rem; }
+    .checklist b { color: var(--yellow); }
+
+    .section { max-width: 1180px; margin: 0 auto; padding: 92px clamp(20px, 4vw, 50px); }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 28px; }
+    .section-heading h2 { margin-bottom: 0; font: 700 clamp(2rem, 4vw, 3.4rem)/1 Georgia, serif; letter-spacing: -0.05em; }
+    .section-heading p { max-width: 390px; margin-bottom: 0; color: var(--muted); }
+    .topics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .topic { min-height: 220px; padding: 25px; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 8px 25px rgba(26, 55, 55, 0.04); }
+    .topic-number { color: var(--coral); font: 700 1.7rem Georgia, serif; }
+    .topic h3 { margin: 25px 0 8px; font-size: 1.25rem; }
+    .topic p { margin-bottom: 0; color: var(--muted); font-size: 0.92rem; }
+    .topic.html { border-top: 5px solid #e9694d; }
+    .topic.css { border-top: 5px solid var(--teal); }
+    .topic.js { border-top: 5px solid var(--yellow); }
+
+    .lab-wrap { background: #17262f; }
+    .lab-wrap .section { padding-top: 80px; padding-bottom: 80px; }
+    .lab-wrap .section-heading h2 { color: white; }
+    .lab-wrap .section-heading p { color: #a9bdb9; }
+    .lab { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 18px; }
+    .code-panel, .preview-panel { min-width: 0; border: 1px solid #35515a; background: #203740; }
+    .tabs { display: flex; gap: 4px; padding: 10px; border-bottom: 1px solid #35515a; }
+    .tab { border: 0; padding: 8px 13px; color: #99b1ac; background: transparent; border-radius: 3px; font-size: 0.8rem; font-weight: 700; }
+    .tab.active { color: #17262f; background: var(--yellow); }
+    .code { display: none; min-height: 280px; margin: 0; padding: 22px; color: #e7f0ea; white-space: pre-wrap; font: 0.84rem/1.8 Consolas, monospace; }
+    .code.active { display: block; }
+    .code .tag { color: #f6c95b; }
+    .code .attr { color: #f39b85; }
+    .code .value { color: #a9d6b9; }
+    .preview-panel { padding: 20px; background: #f7f5ef; }
+    .preview-label { display: flex; justify-content: space-between; margin-bottom: 12px; color: var(--muted); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .preview-card { display: grid; place-items: center; min-height: 280px; padding: 24px; background: white; border: 1px dashed #b5c6bd; text-align: center; }
+    .demo-title { margin-bottom: 6px; color: var(--teal-dark); font: 700 2.3rem Georgia, serif; }
+    .demo-subtitle { margin-bottom: 20px; color: var(--muted); }
+    .counter { display: inline-flex; align-items: center; gap: 12px; padding: 5px; border-radius: 30px; background: #e7f0ea; }
+    .counter button { width: 34px; height: 34px; border: 0; border-radius: 50%; color: white; background: var(--teal); font-size: 1.3rem; }
+    .counter strong { min-width: 20px; color: var(--teal-dark); text-align: center; }
+
+    .quiz { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 38px; align-items: start; }
+    .quiz-intro { padding-right: 20px; }
+    .quiz-intro h2 { margin-bottom: 14px; font: 700 3rem/1 Georgia, serif; letter-spacing: -0.05em; }
+    .quiz-intro p { color: var(--muted); }
+    .question { padding: 26px; background: var(--panel); border: 1px solid var(--line); }
+    .question h3 { margin-bottom: 18px; font-size: 1.1rem; }
+    .answers { display: grid; gap: 9px; }
+    .answer { padding: 12px 14px; border: 1px solid var(--line); background: white; text-align: left; }
+    .answer:hover { border-color: var(--teal); }
+    .answer.correct { color: var(--teal-dark); border-color: var(--teal); background: #dcefe7; }
+    .answer.wrong { color: #a13e2b; border-color: var(--coral); background: #ffebe5; }
+    #quiz-result { min-height: 28px; margin: 17px 0 0; color: var(--teal-dark); font-weight: 800; }
+
+    footer { padding: 25px 20px; color: #b9d3ca; background: var(--teal-dark); text-align: center; font-size: 0.84rem; }
+    @media (max-width: 760px) {
+      .topbar { padding: 14px 20px; }
+      .nav { gap: 10px; }
+      .nav a { font-size: 0.76rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 70px; }
+      .hero::after { right: -220px; }
+      .blueprint { transform: none; }
+      .section-heading, .quiz { display: block; }
+      .section-heading p { margin-top: 14px; }
+      .topics, .lab { grid-template-columns: 1fr; }
+      .quiz-intro { padding: 0; margin-bottom: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">WEB<span>·</span>LAB</a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="#topics">핵심 개념</a>
+      <a href="#lab">실습실</a>
+      <a href="#quiz">퀴즈</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Beginner's field guide</div>
+        <h1>웹의 뼈대부터<br><em>움직임까지.</em></h1>
+        <p class="hero-copy">HTML로 구조를 만들고, CSS로 분위기를 입히고, JavaScript로 화면에 생명을 불어넣어 보세요. 세 가지 언어의 역할을 짧고 선명하게 익힙니다.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#topics">학습 시작하기</a>
+          <a class="btn btn-quiet" href="#lab">바로 실습하기</a>
+        </div>
+      </div>
+      <aside class="blueprint" aria-label="학습 로드맵">
+        <span class="eyebrow">Your roadmap</span>
+        <h2>작은 조각이<br>멋진 화면이 됩니다.</h2>
+        <p>한 번에 하나씩. 결과를 눈으로 확인하며 웹의 기본 감각을 만들어 보세요.</p>
+        <div class="checklist">
+          <div><span>01 / 구조</span><b>HTML</b></div>
+          <div><span>02 / 표현</span><b>CSS</b></div>
+          <div><span>03 / 동작</span><b>JS</b></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="topics">
+      <div class="section-heading">
+        <h2>세 가지 언어,<br>세 가지 역할</h2>
+        <p>웹 페이지는 서로 다른 전문성을 가진 세 레이어가 함께 작동할 때 완성됩니다.</p>
+      </div>
+      <div class="topics">
+        <article class="topic html"><span class="topic-number">01</span><h3>HTML · 뼈대</h3><p>제목, 문단, 이미지, 버튼처럼 페이지에 들어갈 콘텐츠와 의미를 정의합니다.</p></article>
+        <article class="topic css"><span class="topic-number">02</span><h3>CSS · 스타일</h3><p>색, 크기, 여백, 배치, 반응형 규칙으로 콘텐츠의 인상과 사용성을 만듭니다.</p></article>
+        <article class="topic js"><span class="topic-number">03</span><h3>JavaScript · 동작</h3><p>클릭, 입력, 데이터 변경에 반응해 페이지를 살아 있는 경험으로 바꿉니다.</p></article>
+      </div>
+    </section>
+
+    <section class="lab-wrap" id="lab">
+      <div class="section">
+        <div class="section-heading"><h2>코드를<br>직접 읽어보기</h2><p>탭을 바꿔 세 언어의 문법을 비교하고, 오른쪽 결과의 버튼도 눌러보세요.</p></div>
+        <div class="lab">
+          <div class="code-panel">
+            <div class="tabs" role="tablist" aria-label="코드 예제">
+              <button class="tab active" data-code="html" role="tab">HTML</button>
+              <button class="tab" data-code="css" role="tab">CSS</button>
+              <button class="tab" data-code="js" role="tab">JS</button>
+            </div>
+            <pre class="code active" id="code-html"><span class="tag">&lt;button</span> <span class="attr">id</span>=<span class="value">"helloButton"</span><span class="tag">&gt;</span>
+  눌러 보세요
+<span class="tag">&lt;/button&gt;</span></pre>
+            <pre class="code" id="code-css"><span class="tag">#helloButton</span> {
+  <span class="attr">background</span>: <span class="value">#0d7771</span>;
+  <span class="attr">color</span>: <span class="value">white</span>;
+  <span class="attr">border-radius</span>: <span class="value">30px</span>;
+}</pre>
+            <pre class="code" id="code-js"><span class="value">helloButton</span>.addEventListener(<span class="value">"click"</span>, () =&gt; {
+  <span class="value">helloButton</span>.textContent = <span class="value">"좋아요!"</span>;
+});</pre>
+          </div>
+          <div class="preview-panel">
+            <div class="preview-label"><span>Live preview</span><span>01 / 03</span></div>
+            <div class="preview-card">
+              <div>
+                <div class="demo-title">Hello, web.</div>
+                <p class="demo-subtitle" id="demo-message">버튼을 누르면 숫자가 올라갑니다.</p>
+                <div class="counter"><button id="minus" aria-label="숫자 줄이기">−</button><strong id="count">0</strong><button id="plus" aria-label="숫자 늘리기">+</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <div class="quiz">
+        <div class="quiz-intro"><div class="eyebrow">Quick check</div><h2>배운 내용을<br>확인해 볼까요?</h2><p>정답을 고르면 바로 결과를 알려드립니다. 틀려도 괜찮아요. 다시 읽으면 됩니다.</p></div>
+        <div class="question">
+          <h3>Q. 웹 페이지의 구조와 콘텐츠를 담당하는 언어는?</h3>
+          <div class="answers"><button class="answer" data-correct="false">CSS</button><button class="answer" data-correct="true">HTML</button><button class="answer" data-correct="false">JavaScript</button></div>
+          <p id="quiz-result" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>오늘의 작은 실험이 내일의 웹 페이지가 됩니다.</footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const codeBlocks = document.querySelectorAll('.code');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((item) => item.classList.remove('active'));
+        codeBlocks.forEach((block) => block.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`#code-${tab.dataset.code}`).classList.add('active');
+      });
+    });
+
+    let count = 0;
+    const countLabel = document.querySelector('#count');
+    const message = document.querySelector('#demo-message');
+    function updateCount(nextCount) {
+      count = nextCount;
+      countLabel.textContent = count;
+      message.textContent = count === 0 ? '버튼을 누르면 숫자가 올라갑니다.' : `현재 숫자는 ${count}입니다.`;
+    }
+    document.querySelector('#plus').addEventListener('click', () => updateCount(count + 1));
+    document.querySelector('#minus').addEventListener('click', () => updateCount(Math.max(0, count - 1)));
+
+    const result = document.querySelector('#quiz-result');
+    document.querySelectorAll('.answer').forEach((answer) => {
+      answer.addEventListener('click', () => {
+        document.querySelectorAll('.answer').forEach((item) => item.classList.remove('correct', 'wrong'));
+        const correct = answer.dataset.correct === 'true';
+        answer.classList.add(correct ? 'correct' : 'wrong');
+        result.textContent = correct ? '정답입니다. HTML은 웹 콘텐츠의 구조를 담당해요.' : '아쉬워요. 구조를 만드는 언어는 HTML입니다.';
+      });
+    });
+  </script>
+</body>
+</html>

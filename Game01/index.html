@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>NEON TETRIS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="game-shell">
+    <header class="game-header">
+      <div>
+        <p class="eyebrow">ARCADE / 01</p>
+        <h1>NEON TETRIS</h1>
+      </div>
+      <button class="icon-button" id="pauseButton" type="button" aria-label="게임 일시정지">Ⅱ</button>
+    </header>
+
+    <section class="game-layout" aria-label="테트리스 게임">
+      <div class="board-wrap">
+        <canvas id="gameCanvas" width="300" height="600" aria-label="테트리스 게임 보드"></canvas>
+        <div class="overlay hidden" id="gameOverlay">
+          <p class="overlay-kicker" id="overlayKicker">READY?</p>
+          <h2 id="overlayTitle">NEON TETRIS</h2>
+          <button class="primary-button" id="startButton" type="button">게임 시작</button>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="stat-grid">
+          <div class="stat-card"><span>점수</span><strong id="score">0</strong></div>
+          <div class="stat-card"><span>최고 점수</span><strong id="highScore">0</strong></div>
+          <div class="stat-card"><span>레벨</span><strong id="level">1</strong></div>
+          <div class="stat-card"><span>줄</span><strong id="lines">0</strong></div>
+        </div>
+
+        <section class="next-panel">
+          <div class="panel-heading"><span>다음 블록</span><span class="panel-mark">NEXT</span></div>
+          <canvas id="nextCanvas" width="144" height="144" aria-label="다음 블록 미리보기"></canvas>
+        </section>
+
+        <section class="help-panel">
+          <div class="panel-heading"><span>조작</span><span class="panel-mark">KEYS</span></div>
+          <div class="key-row"><kbd>←</kbd><kbd>→</kbd><span>이동</span></div>
+          <div class="key-row"><kbd>↑</kbd><span>회전</span></div>
+          <div class="key-row"><kbd>↓</kbd><span>빠르게 내리기</span></div>
+          <div class="key-row"><kbd>SPACE</kbd><span>즉시 내리기</span></div>
+          <div class="key-row"><kbd>P</kbd><span>일시정지</span></div>
+        </section>
+      </aside>
+    </section>
+
+    <div class="mobile-controls" aria-label="터치 조작">
+      <button type="button" data-action="left" aria-label="왼쪽 이동">←</button>
+      <button type="button" data-action="rotate" aria-label="회전">↻</button>
+      <button type="button" data-action="down" aria-label="빠르게 내리기">↓</button>
+      <button type="button" data-action="right" aria-label="오른쪽 이동">→</button>
+      <button type="button" data-action="drop" aria-label="즉시 내리기">⇣</button>
+    </div>
+
+    <footer>BLOCKS FALL. YOU RISE.</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

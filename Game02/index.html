@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07151a" />
+  <title>SKY//VECTOR</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="arcade-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <span class="eyebrow">AERIAL DEFENSE SYSTEM / 02</span>
+        <h1>SKY<span>//</span>VECTOR</h1>
+      </div>
+      <div class="mission-status"><span class="status-dot"></span> SECTOR 07 ONLINE</div>
+    </header>
+
+    <section class="game-layout" aria-label="종스크롤 슈팅 게임">
+      <div class="screen-wrap">
+        <canvas id="gameCanvas" width="480" height="720" aria-label="SKY VECTOR 게임 화면"></canvas>
+        <div class="screen-ui" id="screenUi">
+          <span class="screen-tag">MISSION // AIRSPACE</span>
+          <div class="title-lockup">
+            <p>THE SKY IS NOT EMPTY.</p>
+            <h2>DEFEND<br /><em>THE VECTOR</em></h2>
+          </div>
+          <button class="start-button" id="startButton" type="button"><span>▶</span> 출격 시작</button>
+          <p class="hint">ARROW KEYS / WASD TO FLY &nbsp;·&nbsp; SPACE TO FIRE &nbsp;·&nbsp; X TO BOMB</p>
+        </div>
+      </div>
+
+      <aside class="intel-panel">
+        <div class="readout-grid">
+          <div class="readout"><span>SCORE</span><strong id="score">000000</strong></div>
+          <div class="readout"><span>HI-SCORE</span><strong id="highScore">000000</strong></div>
+          <div class="readout"><span>STAGE</span><strong id="wave">01</strong></div>
+          <div class="readout"><span>SHIELD</span><strong id="shield">03</strong></div>
+        </div>
+        <div class="boss-readout" id="bossReadout"><div><span id="bossName">BOSS // INCOMING</span><b id="bossPercent">100%</b></div><div class="boss-bar"><span id="bossBarFill"></span></div></div>
+
+        <section class="intel-card radar-card">
+          <div class="card-heading"><span>THREAT RADAR</span><b>LIVE</b></div>
+          <div class="radar"><span class="radar-sweep"></span><i></i><i></i><i></i></div>
+        </section>
+
+        <section class="intel-card briefing">
+          <div class="card-heading"><span>FIELD BRIEFING</span><b>OPS</b></div>
+          <p>정글 상공의 강한 적을 격추하면 미사일 아이템이 떨어집니다. 직접 획득해 무기를 강화하십시오.</p>
+          <div class="weapon-readout"><span>WEAPON</span><strong id="weapon">VECTOR // SINGLE</strong></div>
+        </section>
+
+        <section class="intel-card controls">
+          <div class="card-heading"><span>FLIGHT DECK</span><b>KEYS</b></div>
+          <div class="control-row"><kbd>W A S D</kbd><span>비행 조작</span></div>
+          <div class="control-row"><kbd>SPACE</kbd><span>기총 발사</span></div>
+          <div class="control-row"><kbd>X</kbd><span>폭탄 투하</span></div>
+          <div class="control-row"><kbd>P</kbd><span>일시정지</span></div>
+        </section>
+      </aside>
+    </section>
+
+    <div class="touch-deck" aria-label="터치 조작">
+      <button data-action="left" aria-label="왼쪽">←</button>
+      <button data-action="up" aria-label="위쪽">↑</button>
+      <button data-action="fire" aria-label="발사">●</button>
+      <button data-action="down" aria-label="아래쪽">↓</button>
+      <button data-action="right" aria-label="오른쪽">→</button>
+      <button data-action="bomb" aria-label="폭탄">✦</button>
+    </div>
+    <footer><span>SV-02</span> &nbsp; / &nbsp; HOLD THE LINE &nbsp; / &nbsp; <span>NO SIGNAL LOST</span></footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
